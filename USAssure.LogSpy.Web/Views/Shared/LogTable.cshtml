@@ -1,0 +1,38 @@
+﻿@model IEnumerable<USAssure.LogSpy.Web.Models.LogListItemViewModel>
+
+@if (!Model.Any())
+{
+    <div class="text-center">
+    @{ Html.RenderPartial("NoResults"); }
+    </div>
+}
+else
+{
+    <table class="table table-condensed table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>App</th>
+                <th>Box</th>
+                <th>Level</th>
+                <th>Type</th>
+                @*<th>Error</th>*@
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var log in Model)
+            {
+                <tr class="log-item-row" data-id="@log.Id" data-url="@Url.Action("GetLog")">
+                    <td>@log.RecordedDate.ToString("yyyy-MM-dd hh:mm:ss.fffff tt")</td>
+                    <td>@log.AppName</td>
+                    <td>@log.MachineName</td>
+                    <td><span class="label @log.LogLevelStyle">@log.Level</span></td>
+                    <td>@log.Type</td>
+                    @*<td>@log.Exception</td>*@
+                    <td>@log.Message</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

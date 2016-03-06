@@ -1,0 +1,67 @@
+﻿@model USAssure.LogSpy.Web.Models.LogViewModel
+
+<div class="row">
+    <div class="col-md-4 text-center"><strong><span class="logspy-text-uppercase">Recorded Date</span></strong></div>
+    <div class="col-md-4 text-center"><strong><span class="logspy-text-uppercase">App</span></strong></div>
+    <div class="col-md-4 text-center"><strong><span class="logspy-text-uppercase">Machine</span></strong></div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 text-center">@Model.RecordedDate.ToString("yyyy-MM-dd hh:mm:ss.fffff tt")</div>
+    <div class="col-md-4 text-center">@Model.AppName</div>
+    <div class="col-md-4 text-center">@Model.MachineName</div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">&nbsp;</div>
+</div>
+
+<div class="row">
+    <div class="col-md-3"><strong><span class="logspy-text-uppercase">Level</span></strong></div>
+    <div class="col-md-9">@Model.Level</div>
+</div>
+
+<div class="row">
+    <div class="col-md-3"><strong><span class="logspy-text-uppercase">Type</span></strong></div>
+    <div class="col-md-9">@Model.Type</div>
+</div>
+
+<div class="row">
+    <div class="col-md-3"><strong><span class="logspy-text-uppercase">IP Address</span></strong></div>
+    <div class="col-md-9">@Model.IpAddress</div>
+</div>
+
+<div class="row">
+    <div class="col-md-3"><strong><span class="logspy-text-uppercase">Host</span></strong></div>
+    <div class="col-md-9">@Model.Host</div>
+</div>
+
+<div class="row">
+    <div class="col-md-3"><strong><span class="logspy-text-uppercase">Url</span></strong></div>
+    <div class="col-md-9">@Model.Url</div>
+</div>
+
+<div class="row">
+    <div class="col-md-3"><strong><span class="logspy-text-uppercase">User</span></strong></div>
+    <div class="col-md-9">@Model.UserName</div>
+</div>
+
+<div class="row">
+    <div class="col-md-3"><strong><span class="logspy-text-uppercase">HTTP Method</span></strong></div>
+    <div class="col-md-9">@Model.HttpMethod</div>
+</div>
+
+<div class="row">
+    <div class="col-md-3"><strong><span class="logspy-text-uppercase">Message</span></strong></div>
+    <div class="col-md-9">@Model.Message</div>
+</div>
+
+<div class="row">
+    <div class="col-md-3"><strong><span class="logspy-text-uppercase">Exception</span></strong></div>
+    <div class="col-md-9">@Model.Exception</div>
+</div>
+
+<div class="row">
+    <div class="col-md-3"><strong><span class="logspy-text-uppercase">Payload</span></strong></div>
+    <div class="col-md-9">@Model.Payload</div>
+</div>

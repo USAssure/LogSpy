@@ -1,0 +1,15 @@
+﻿@model IEnumerable<USAssure.LogSpy.Web.Models.AppViewModel>
+
+<ul class="nav nav-pills" role="tablist" style="display: inline;">
+    @for (int x = 0; x < Model.Count(); x++)
+    {
+        if (x == 0)
+        {
+            <li role="presentation" class="active"><a href="#" class="app-filter" data-url="@Url.Action("GetLogs")" data-app-name="@Model.ElementAt(x).Name">@Model.ElementAt(x).Name <span class="badge">@Model.ElementAt(x).LogCount</span></a></li>
+        }
+        else
+        {
+            <li role="presentation"><a href="#" class="app-filter" data-url="@Url.Action("GetLogs")" data-app-name="@Model.ElementAt(x).Name">@Model.ElementAt(x).Name <span class="badge">@Model.ElementAt(x).LogCount</span></a></li>
+        }
+    }
+</ul>

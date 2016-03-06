@@ -1,0 +1,16 @@
+﻿@model IEnumerable<string>
+
+<div class="btn-group" data-toggle="buttons" role="group">
+    @for (int x = 0; x < Model.Count(); x++)
+    {
+        if (x == 0)
+        {
+            <label class="btn btn-default active logspy-text-uppercase"><input type="radio" name="environments" id="@(Model.ElementAt(x))">@Model.ElementAt(x)</label>
+        }
+        else
+        {
+            <label class="btn btn-default logspy-text-uppercase"><input type="radio" name="environments" id="@(Model.ElementAt(x))">@Model.ElementAt(x)</label>
+        }
+
+    }
+</div>

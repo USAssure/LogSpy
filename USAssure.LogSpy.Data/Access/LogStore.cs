@@ -21,7 +21,11 @@ namespace USAssure.LogSpy.Data.Access
 
         private SqlConnection _sqlConnection;
 
-        private SqlConnection _connection => _sqlConnection ?? (_sqlConnection = new SqlConnection(_connectionString));
+        private SqlConnection _connection
+            //=> _sqlConnection ?? (_sqlConnection = new SqlConnection(_connectionString));
+        {
+            get { return _sqlConnection ?? (_sqlConnection = new SqlConnection(_connectionString)); }
+        }
 
         public IEnumerable<Log> FindLogs(string appName, string query)
         {

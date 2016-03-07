@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "USAssure.LogSpy.Database", "USAssure.LogSpy.Database\USAssure.LogSpy.Database.sqlproj", "{44977F6D-8221-4CF1-880F-70B17B85175A}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "USAssure.LogSpy.Web", "USAssure.LogSpy.Web\USAssure.LogSpy.Web.csproj", "{07E6A5CB-6A1B-4062-BF9C-0FDB2A967693}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "USAssure.LogSpy.Data", "USAssure.LogSpy.Data\USAssure.LogSpy.Data.csproj", "{F8BEBD7F-C40E-432A-A641-4E463D7BB43A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "USAssure.LogSpy.Seed", "USAssure.LogSpy.Seed\USAssure.LogSpy.Seed.csproj", "{1DE8D53E-ED27-4276-9397-B4E02994134B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{F8BEBD7F-C40E-432A-A641-4E463D7BB43A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8BEBD7F-C40E-432A-A641-4E463D7BB43A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8BEBD7F-C40E-432A-A641-4E463D7BB43A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DE8D53E-ED27-4276-9397-B4E02994134B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DE8D53E-ED27-4276-9397-B4E02994134B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DE8D53E-ED27-4276-9397-B4E02994134B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DE8D53E-ED27-4276-9397-B4E02994134B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

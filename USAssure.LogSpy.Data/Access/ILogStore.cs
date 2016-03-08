@@ -9,11 +9,11 @@ namespace USAssure.LogSpy.Data.Access
 {
     public interface ILogStore
     {
-        IEnumerable<Log> GetAllLogs();
-        Log GetLog(long id);
-        IEnumerable<Log> GetLogs(string appName, string machineName);
-        IEnumerable<Log> FindLogs(string appName, string query);
-        IEnumerable<App> GetApps();
-        IEnumerable<string> GetMachines();
+        Task<IEnumerable<Log>> GetAllLogs();
+        Task<Log> GetLog(long id);
+        Task<IEnumerable<Log>> GetLogs(string appName, string machineName);
+        Task<IEnumerable<Log>> FindLogs(string appName, string query);
+        Task<IEnumerable<App>> GetApps();
+        Task<IEnumerable<string>> GetMachines();
     }
 }

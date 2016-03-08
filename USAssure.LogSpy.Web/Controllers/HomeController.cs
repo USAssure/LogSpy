@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using USAssure.LogSpy.Web.Adapters;
 using USAssure.LogSpy.Web.Models;
@@ -15,27 +16,27 @@ namespace USAssure.LogSpy.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetLog(long id, string environment)
+        public async Task<ActionResult> GetLog(long id, string environment)
         {
             if (string.IsNullOrEmpty(environment))
                 environment = LogStores.Keys.First();
 
-            var log = LogStores[environment.ToLowerInvariant()].GetLog(id);
+            var log = await LogStores[environment.ToLowerInvariant()].GetLog(id);
             return PartialView("ViewLog", ViewModelAdapter.ToLogViewModel(log));
         }
 
         [HttpGet]
-        public ActionResult GetLogs(string environment, string appName, string machineName)
+        public async Task<ActionResult> GetLogs(string environment, string appName, string machineName)
         {
             if (string.IsNullOrEmpty(environment))
                 environment = LogStores.Keys.First();
 
-            return PartialView("LogTable", 
-                LogStores[environment.ToLowerInvariant()].GetAllLogs().Select(ViewModelAdapter.ToLogListItemViewModel));
+            var logs = await LogStores[environment.ToLowerInvariant()].GetAllLogs();
+            return PartialView("LogTable", logs.Select(ViewModelAdapter.ToLogListItemViewModel));
         }
 
         [HttpGet]
-        public ActionResult FindLogs(string environment, string appName, string query, string machineName)
+        public async Task<ActionResult> FindLogs(string environment, string appName, string query, string machineName)
         {
             if (string.IsNullOrEmpty(environment))
                 environment = LogStores.Keys.First();
@@ -43,17 +44,19 @@ namespace USAssure.LogSpy.Web.Controllers
             if (string.IsNullOrEmpty(environment))
                 environment = LogStores.Keys.First();
 
-            return PartialView("LogTable", 
-                LogStores[environment.ToLowerInvariant()].FindLogs(appName, query).Select(ViewModelAdapter.ToLogListItemViewModel));
+            var logs = await LogStores[environment.ToLowerInvariant()].FindLogs(appName, query);
+            return PartialView("LogTable", logs.Select(ViewModelAdapter.ToLogListItemViewModel));
         }
 
         [HttpGet]
-        public ActionResult GetLogCount(string environment)
+        public async Task<ActionResult> GetLogCount(string environment)
         {
             if (string.IsNullOrEmpty(environment))
                 environment = LogStores.Keys.First();
 
-            return Json(LogStores[environment.ToLowerInvariant()].GetAllLogs().Count(), JsonRequestBehavior.AllowGet);
+            var logs = await LogStores[environment.ToLowerInvariant()].GetAllLogs();
+
+            return Json(logs.Count(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -63,12 +66,12 @@ namespace USAssure.LogSpy.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetApps(string environment)
+        public async Task<ActionResult> GetApps(string environment)
         {
             if (string.IsNullOrEmpty(environment))
                 environment = LogStores.Keys.First();
 
-            var logs = LogStores[environment.ToLowerInvariant()].GetAllLogs();
+            var logs = await LogStores[environment.ToLowerInvariant()].GetAllLogs();
 
             var apps = new List<AppViewModel>
             {

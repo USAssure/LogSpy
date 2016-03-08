@@ -1,5 +1,15 @@
 ﻿//jquery dependency
 var app = (function () {
+    var retrieveLogs = function (maxItems, appName, machineName, environment) {
+
+    };
+
+    var wireUpMaxItemsDropDown = function () {
+        $('#max-items').change(function () {
+
+        });
+    };
+
     var wireUpAppBar = function() {
         $('#app-bar').on('click', 'a.app-filter', function () {
             var item = $(this);
@@ -66,5 +76,5 @@ var app = (function () {
 })();
 
 $(function () {
-    app.init();
+    //app.init();
 });

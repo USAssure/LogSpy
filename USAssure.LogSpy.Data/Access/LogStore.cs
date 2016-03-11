@@ -21,15 +21,14 @@ namespace USAssure.LogSpy.Data.Access
             _connectionString = connectionString;
         }
 
-        public async Task<IEnumerable<Log>> FindLogs(string appName, string query)
+        public async Task<IEnumerable<Log>> FindLogs(string query, int hours)
         {
             if (string.IsNullOrEmpty(query))
-                return await GetLogs(appName, null);
+                return await GetLogs(null, null, hours);
 
             return await WithConnection(async connection =>
             {
-                var logs = await connection.QueryAsync<Log>("select * from [LogSpy].[dbo].[Log] where [IpAddress] like @query OR [Url] like @query OR [Message] like @query OR [Exception] like @query", new { query = string.Format("%{0}%", query) });
-                return !string.IsNullOrEmpty(appName) && !appName.Equals("all", StringComparison.InvariantCultureIgnoreCase) ? logs.Where(l => l.AppName == appName) : logs;
+                return await connection.QueryAsync<Log>("select * from [LogSpy].[dbo].[Log] where [RecordedDate] >= dateadd(hour, -@hours, sysdatetime()) AND ([IpAddress] like @query OR [Url] like @query OR [Message] like @query OR [Exception] like @query)", new { query = string.Format("%{0}%", query), hours = hours });
             });
         }
 
@@ -57,11 +56,11 @@ namespace USAssure.LogSpy.Data.Access
             });
         }
 
-        public async Task<IEnumerable<Log>> GetLogs(string appName, string machineName)
+        public async Task<IEnumerable<Log>> GetLogs(string appName, string machineName, int hours)
         {
             return await WithConnection(async connection =>
             {
-                var logs = await connection.QueryAsync<Log>("select * from [LogSpy].[dbo].[Log] order by [RecordedDate] desc");
+                var logs = await connection.QueryAsync<Log>("select * from [LogSpy].[dbo].[Log] where [RecordedDate] >= dateadd(hour, -@hours, sysdatetime()) order by [RecordedDate] desc", new { hours = hours });
                 if (!string.IsNullOrEmpty(appName) && !appName.Equals("all", StringComparison.InvariantCultureIgnoreCase))
                     logs = logs.Where(a => a.AppName == appName);
 

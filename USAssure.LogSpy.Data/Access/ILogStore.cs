@@ -11,8 +11,8 @@ namespace USAssure.LogSpy.Data.Access
     {
         Task<IEnumerable<Log>> GetAllLogs();
         Task<Log> GetLog(long id);
-        Task<IEnumerable<Log>> GetLogs(string appName, string machineName);
-        Task<IEnumerable<Log>> FindLogs(string appName, string query);
+        Task<IEnumerable<Log>> GetLogs(string appName, string machineName, int hours);
+        Task<IEnumerable<Log>> FindLogs(string query, int hours);
         Task<IEnumerable<App>> GetApps();
         Task<IEnumerable<string>> GetMachines();
     }

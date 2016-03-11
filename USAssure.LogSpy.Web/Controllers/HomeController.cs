@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using USAssure.LogSpy.Data.Entities;
 using USAssure.LogSpy.Web.Adapters;
 using USAssure.LogSpy.Web.Models;
 
@@ -26,37 +27,26 @@ namespace USAssure.LogSpy.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetLogs(string environment, string appName, string machineName)
+        public async Task<ActionResult> FindLogs(string environment, string appName, string query, string machineName, int hours)
         {
             if (string.IsNullOrEmpty(environment))
                 environment = LogStores.Keys.First();
 
-            var logs = await LogStores[environment.ToLowerInvariant()].GetAllLogs();
-            return PartialView("LogTable", logs.Select(ViewModelAdapter.ToLogListItemViewModel));
-        }
+            var logs = await LogStores[environment.ToLowerInvariant()].FindLogs(query, hours <= 0 ? 24 : hours);
 
-        [HttpGet]
-        public async Task<ActionResult> FindLogs(string environment, string appName, string query, string machineName)
-        {
-            if (string.IsNullOrEmpty(environment))
-                environment = LogStores.Keys.First();
+            if (string.IsNullOrEmpty(appName))
+                appName = "All";     
+            
+            var model = new LogTableViewModel
+            {
+                Apps = GetAppList(logs, appName),
+                Logs = 
+                    !appName.Equals("All", System.StringComparison.InvariantCultureIgnoreCase) ?
+                        logs.Where(l => l.AppName.Equals(appName, System.StringComparison.InvariantCultureIgnoreCase)).Select(ViewModelAdapter.ToLogListItemViewModel) : 
+                        logs.Select(ViewModelAdapter.ToLogListItemViewModel)
+            };
 
-            if (string.IsNullOrEmpty(environment))
-                environment = LogStores.Keys.First();
-
-            var logs = await LogStores[environment.ToLowerInvariant()].FindLogs(appName, query);
-            return PartialView("LogTable", logs.Select(ViewModelAdapter.ToLogListItemViewModel));
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> GetLogCount(string environment)
-        {
-            if (string.IsNullOrEmpty(environment))
-                environment = LogStores.Keys.First();
-
-            var logs = await LogStores[environment.ToLowerInvariant()].GetAllLogs();
-
-            return Json(logs.Count(), JsonRequestBehavior.AllowGet);
+            return PartialView("LogTable", model);
         }
 
         [HttpGet]
@@ -65,14 +55,8 @@ namespace USAssure.LogSpy.Web.Controllers
             return PartialView("EnvironmentSelector", LogStores.Keys.Select(k => k));
         }
 
-        [HttpGet]
-        public async Task<ActionResult> GetApps(string environment)
+        private IEnumerable<AppViewModel> GetAppList(IEnumerable<Log> logs, string selectedApp)
         {
-            if (string.IsNullOrEmpty(environment))
-                environment = LogStores.Keys.First();
-
-            var logs = await LogStores[environment.ToLowerInvariant()].GetAllLogs();
-
             var apps = new List<AppViewModel>
             {
                 new AppViewModel
@@ -88,7 +72,12 @@ namespace USAssure.LogSpy.Web.Controllers
                 LogCount = a.LogCount
             }));
 
-            return PartialView("AppBar", apps);
+            if (!string.IsNullOrEmpty(selectedApp) && !selectedApp.Equals("all", System.StringComparison.InvariantCultureIgnoreCase))
+                apps.First(a => a.Name.Equals(selectedApp, System.StringComparison.InvariantCultureIgnoreCase)).Selected = true;
+            else
+                apps.First(a => a.Name.Equals("All")).Selected = true;
+
+            return apps;
         }
     }
 }

@@ -17,12 +17,12 @@
                         <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
                         <input type="text" class="form-control pull-left" id="search-text" data-url="@Url.Action("FindLogs")" style="height: 36px;" placeholder="Search">
 
-                        <div class="pull-left">
-                            <select id="max-items" class="form-control" style="padding-left: 15px">
-                                <option value="25" selected>25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                                <option value="999">All</option>
+                        <div class="pull-left logspy-date-filter">
+                            <select id="date-filter" class="form-control logspy-dropdown" data-url="@Url.Action("FindLogs")" style="padding-left: 15px">
+                                <option value="24" selected>Past Day</option>
+                                <option value="72">Past 3 Days</option>
+                                <option value="168">Past Week</option>
+                                <option value="336">Past 2 Weeks</option>
                             </select>
                         </div>
 

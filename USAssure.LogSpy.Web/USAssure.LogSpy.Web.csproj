@@ -127,6 +127,7 @@
     <Compile Include="Models\EnvironmentConfigModel.cs" />
     <Compile Include="Models\EnvironmentModel.cs" />
     <Compile Include="Models\LogListItemViewModel.cs" />
+    <Compile Include="Models\LogTableViewModel.cs" />
     <Compile Include="Models\LogViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

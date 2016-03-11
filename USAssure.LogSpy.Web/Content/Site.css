@@ -41,3 +41,12 @@ textarea {
    max-width:1200px;
   }
 }
+
+.logspy-date-filter {
+    padding-left: 15px;
+}
+
+.logspy-dropdown {
+    height: 36px;
+    border-radius: 5px 5px 5px 5px !important;
+}
